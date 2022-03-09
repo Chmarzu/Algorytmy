@@ -2,19 +2,23 @@
 using namespace std;
 
 int main() {
-    int n, liczba1 = 0, liczba2 = 1;
+    int n, i, liczba1 = 0, liczba2 = 1, wynik;
     printf("Podaj liczbe: ");
     scanf("%d", &n);
     if (n < 0) {
         printf("Bledne wartosci!");
-        return 0;
+        exit(0);
     }
-    else if (n == 0) printf("Element ciagu Fibonacciego: %d", liczba1);
+    else if (!n) printf("Element ciagu Fibonacciego: %d", liczba1);
     else if (n == 1 || n == 2) printf("Element ciagu Fibonacciego: %d", liczba2);
     else {
-        for (int i = 0; i < n - 2; ++i) {
-            liczba1 = liczba2;
-            liczba2 += liczba1;
+        liczba1 = liczba2;
+        for (i = 0; i < n - 2; i++) {
+            wynik = liczba1 + liczba2;
+            if (n > 3) {
+                liczba1 = liczba2;
+                liczba2 = wynik;
+            }
         }
         printf("Element ciagu Fibonacciego: %d", liczba2);
     }
