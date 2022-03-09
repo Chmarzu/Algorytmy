@@ -28,15 +28,15 @@ int main() {
         }
     }
     
-    //DO WYJEBANIA
-    cout << "Tranzpozycja macierzy pierwszej" << endl;
-    for (i = 0; i < n; i++)
-    {
+  
+      //cout << "Tranzpozycja macierzy pierwszej" << endl;
+     // for (i = 0; i < n; i++)
+      //{
 
-            for (j = 0; j < n; j++)
-            cout << matrixSec[j][i] <<" ";
-            cout << endl;
-     }
+             // for (j = 0; j < n; j++)
+             // cout << matrixSec[j][i] <<" ";
+             // cout << endl;
+      // }
 
    
 
