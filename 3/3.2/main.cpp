@@ -3,7 +3,7 @@ using namespace std;
 
 int main() {
     unsigned short mode;
-    int w, j,i, a, det;
+    int w, j, i, a, n, det;
 
     cout << "Wybierz operacje:" << endl << "(1) Wyznacznik" << endl << "(2) Mnozenie macierzy" << endl << "(3) Transpozycja" << endl;
     cin >> mode;
@@ -20,6 +20,24 @@ int main() {
             matrixFirst[i][j] = a;
         }
     }
+
+    cout << "Tranzpozycja macierzy pierwszej" << endl;
+    for (i = 0; i < n; i++)
+    {
+
+            for (j = 0; j < n; j++)
+            cout << matrixSec[j][i] <<" ";
+            cout << endl;
+     }
+
+     cout << "Tranzpozycja macierzy pierwszej" << endl;
+     for (i = 0; i < n; i++)
+     {
+
+            for (j = 0; j < n; j++)
+            cout << matrixSec[j][i] <<" ";
+            cout << endl;
+     }
 
     switch (mode) {
         case 1:
