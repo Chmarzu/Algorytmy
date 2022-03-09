@@ -5,7 +5,8 @@ int main() {
     unsigned short mode;
     int w, j, i, a, n, det;
 
-    cout << "Wybierz operacje:" << endl << "(1) Wyznacznik" << endl << "(2) Mnozenie macierzy" << endl << "(3) Transpozycja" << endl;
+    cout << "Wybierz operacje:" << endl << "(1) Wyznacznik" << endl << "(2) Mnozenie macierzy" << endl
+         << "(3) Transpozycja" << endl;
     cin >> mode;
 
     cout << "Podaj rozmiar dla wspólnych macierzy";
@@ -21,25 +22,6 @@ int main() {
         }
     }
 
-     for (i = 0; i < w; i++) {
-        for (j = 0; j < w; j++) {
-  
-           matrixSec[j][i] = matrixFirst[i][j]
-        }
-    }
-    
-  
-      //cout << "Tranzpozycja macierzy pierwszej" << endl;
-     // for (i = 0; i < n; i++)
-      //{
-
-             // for (j = 0; j < n; j++)
-             // cout << matrixSec[j][i] <<" ";
-             // cout << endl;
-      // }
-
-   
-
     switch (mode) {
         case 1:
             if (w == 2)
@@ -53,6 +35,20 @@ int main() {
                       (matrixFirst[0][1] * matrixFirst[1][0] * matrixFirst[2][2]);
             }
             cout << det;
+            break;
+        case 3:
+            for (i = 0; i < w; i++) {
+                for (j = 0; j < w; j++) {
+                    matrixSec[j][i] = matrixFirst[i][j];
+                }
+            }
+
+            for (i = 0; i < w; i++) {
+                for (j = 0; j < w; j++) {
+                    cout << matrixSec[i][j];
+                }
+                cout << endl;
+            }
             break;
     }
 }
