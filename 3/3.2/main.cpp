@@ -1,7 +1,13 @@
 #include <iostream>
 using namespace std;
-int w, j,i, a;
+
 int main() {
+    unsigned short mode;
+    int w, j,i, a, det;
+
+    cout << "Wybierz operacje:" << endl << "(1) Wyznacznik" << endl << "(2) Mnozenie macierzy" << endl << "(3) Transpozycja" << endl;
+    cin >> mode;
+
     cout << "Podaj rozmiar dla wspólnych macierzy";
     cin >> w;
 
@@ -13,5 +19,21 @@ int main() {
             cin >> a;
             matrixFirst[i][j] = a;
         }
+    }
+
+    switch (mode) {
+        case 1:
+            if (w == 2)
+                det = (matrixFirst[0][0] * matrixFirst[1][1]) - (matrixFirst[0][1] * matrixFirst[1][0]);
+            else if (w == 3) {
+                det = (matrixFirst[0][0] * matrixFirst[1][1] * matrixFirst[2][2]) +
+                      (matrixFirst[0][1] * matrixFirst[1][2] * matrixFirst[2][0]) +
+                      (matrixFirst[0][2] * matrixFirst[2][0] * matrixFirst[2][1]) -
+                      (matrixFirst[0][2] * matrixFirst[1][1] * matrixFirst[2][0]) -
+                      (matrixFirst[0][0] * matrixFirst[1][2] * matrixFirst[2][1]) -
+                      (matrixFirst[0][1] * matrixFirst[1][0] * matrixFirst[2][2]);
+            }
+            cout << det;
+            break;
     }
 }
