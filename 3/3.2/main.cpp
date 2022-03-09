@@ -21,6 +21,14 @@ int main() {
         }
     }
 
+     for (i = 0; i < w; i++) {
+        for (j = 0; j < w; j++) {
+  
+           matrixSec[j][i] = matrixFirst[i][j]
+        }
+    }
+    
+    //DO WYJEBANIA
     cout << "Tranzpozycja macierzy pierwszej" << endl;
     for (i = 0; i < n; i++)
     {
@@ -30,14 +38,7 @@ int main() {
             cout << endl;
      }
 
-     cout << "Tranzpozycja macierzy pierwszej" << endl;
-     for (i = 0; i < n; i++)
-     {
-
-            for (j = 0; j < n; j++)
-            cout << matrixSec[j][i] <<" ";
-            cout << endl;
-     }
+   
 
     switch (mode) {
         case 1:
