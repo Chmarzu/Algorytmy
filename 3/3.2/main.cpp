@@ -11,7 +11,7 @@ int main()
   
     for (i = 0; i < w; i++)                         
         {
-            for (j = 0; j < k; j++)
+            for (j = 0; j < w; j++)
             {
                 cin << 1;
                 cin >> a;
