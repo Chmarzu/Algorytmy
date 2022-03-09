@@ -3,7 +3,7 @@ using namespace std;
 
 int main() {
     unsigned short mode;
-    int w, j, i, a, n, det;
+    int w, j, i, a, n, det, pom;
 
     cout << "Wybierz operacje:" << endl << "(1) Wyznacznik" << endl << "(2) Mnozenie macierzy" << endl
          << "(3) Transpozycja" << endl;
@@ -37,10 +37,11 @@ int main() {
             cout << det;
             break;
         case 2:
-            for (i = 0; i < w; ++i) {
+            for (i = 0; i < w * w; ++i) {
                 for (j = 0; j < w; ++j) {
-                    matrixMulti[i][j] = (matrixFirst[i][j] * matrixSec[i][j]);
+                    pom = (matrixFirst[i][j] * matrixSec[i][j]);
                 }
+                matrixMulti[i][j] = pom;
             }
             break;
         case 3:
