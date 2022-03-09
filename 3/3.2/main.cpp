@@ -12,7 +12,7 @@ int main() {
     cout << "Podaj rozmiar dla wspólnych macierzy";
     cin >> w;
 
-    int matrixFirst[w][w], matrixSec[w][w];
+    int matrixFirst[w][w], matrixSec[w][w], matrixMulti[w][w];
     cout << "Wypisz liczby dla macierzy pierwszej od lewej do prawej" << endl;
 
     for (i = 0; i < w; i++) {
@@ -35,6 +35,13 @@ int main() {
                       (matrixFirst[0][1] * matrixFirst[1][0] * matrixFirst[2][2]);
             }
             cout << det;
+            break;
+        case 2:
+            for (i = 0; i < w; ++i) {
+                for (j = 0; j < w; ++j) {
+                    matrixMulti[i][j] = (matrixFirst[i][j] * matrixSec[i][j]);
+                }
+            }
             break;
         case 3:
             for (i = 0; i < w; i++) {
