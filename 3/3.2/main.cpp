@@ -46,33 +46,28 @@ int main() {
                 }
             }
 
-            /*
-            pointer = & matrixFirst[0][0];
-            for (i = 0; i < w * w; ++i) {
-                for (j = 0; j < w; ++j) {
-                    for (k = 0; k < w; ++k) {
-
-                    }
-                    pom = (matrixFirst[i][j] * matrixSec[i][j]);
-                }
-                matrixMulti[i][j] = pom;
-            }
-            */
-
-            pointer2 = &matrixSec[0][0];
             pointer3 = &matrixMulti[0][0];
-            for (j = 0; j < w - 1; j++) {
-                pointer = &matrixFirst[0][0];
-                for (i = 0; i < w; ++i) {
-                    pom += *pointer * *pointer2;
-                    pointer++;
-                    pointer2 += w;
+            for (k = 0; k < w; ++k) {
+                for (j = 0; j < w; j++) {
+                    pointer = &matrixFirst[k][0];
+                    pointer2 = &matrixSec[0][j];
+                    pom = 0;
+                    for (i = 0; i < w; ++i) {
+                        pom += *pointer * *pointer2;
+                        pointer++;
+                        pointer2 += w;
+                    }
+                    *pointer3 = pom;
+                    pointer3++;
                 }
-                *pointer3 = pom;
-                pointer3++;
-                pointer2 -= w + 2;
             }
 
+            for (i = 0; i < w; i++) {
+                for (j = 0; j < w; j++) {
+                    cout << matrixMulti[i][j] << " ";
+                }
+                cout << endl;
+            }
             break;
         case 3:
             for (i = 0; i < w; i++) {
