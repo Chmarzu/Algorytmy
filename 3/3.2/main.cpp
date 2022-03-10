@@ -46,13 +46,13 @@ int main() {
                 }
             }
 
-            pointer3 = &matrixMulti[0][0];
-            for (k = 0; k < w; ++k) {
-                for (j = 0; j < w; j++) {
+            pointer3 = &matrixMulti[0][0]; //zeruje matryce wynikową
+            for (k = 0; k < w; ++k) { //ustwia pierwszą macierz do mnożenia tak żeby przesuwać się po wierszach
+                for (j = 0; j < w; j++) { //ustwia drugą macierz tak żeby przesuwać się po kolumach
                     pointer = &matrixFirst[k][0];
                     pointer2 = &matrixSec[0][j];
-                    pom = 0;
-                    for (i = 0; i < w; ++i) {
+                    pom = 0; 
+                    for (i = 0; i < w; ++i) { //przemnaża pojedyńczy wiersz i kolumne
                         pom += *pointer * *pointer2;
                         pointer++;
                         pointer2 += w;
