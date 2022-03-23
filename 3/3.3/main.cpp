@@ -25,7 +25,7 @@ int main() {
                 liczba2 = wynik;
             }
         }
-        printf("Element ciagu Fibonacciego: %d", liczba2);
+        cout << "Element ciagu Fibonacciego: " << wynik;
     }
     return 0;
 }
