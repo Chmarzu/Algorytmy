@@ -2,7 +2,7 @@
 using namespace std;
 
 int main() {
-    int sum = 1, check, n;
+    int check, n, sum = 1;
 
     for (check = 2; check <= 30; check++) {
         for (n = 2; n < check; n++) {
