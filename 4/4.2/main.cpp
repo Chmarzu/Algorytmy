@@ -34,7 +34,7 @@ int main() {
                 pbin++;
             }
         }
-    } else {
+    } else if (pom == 2) {
         pbin = &bin[0];
 
         cout << "Podaj liczbe w systemie dwojkowym:" << endl;
@@ -60,6 +60,8 @@ int main() {
             liczba = decymalny(pbin, &bin[0]);
             cout << "Podana liczba w systemie dziesietnym wynosi: " << liczba;
         }
+    } else {
+        cout << "Bledny wybor!";
     }
     return 0;
 }
