@@ -22,7 +22,7 @@ int main() {
     gets(palin);
 
     if (pal1[ROZ-1] != '\000')      //Sprawdzenie pojemnosci
-        cout << "Tablica jest za mala!";
+        cout << "Ten ciag jest za duzy!";
     else {
         palin = &pal1[ROZ - 2];
         drom = &pal2[0];
