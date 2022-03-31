@@ -27,6 +27,8 @@ int main() {
     } while (strcmp(stop, "STOP") != 0);
 
     srednia = liczba / waga;
-    cout << "Srednia wazona z podanych liczb wynosi: " << srednia;
+    cout << "Srednia wazona z podanych liczb wynosi: " << srednia << endl;
+    fflush(stdin);
+    getchar();
     return 0;
 }
