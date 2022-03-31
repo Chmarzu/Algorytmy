@@ -4,11 +4,11 @@ using namespace std;
 
 int main() {
 
-    int i = 0, nr = 1, pom = 0, pom2 = 0;
+    int nr = 1, pom = 0, pom2 = 0;
     float waga = 0, liczba = 0, srednia;
     char stop[5], *pstop;
     pstop = &stop[0];
-    stop[i] = '\000';       //Czyszczenie lancucha
+    stop[pom] = '\000';       //Czyszczenie lancucha
 
     cout << "Program do obliczania sredniej." << endl;
 
