@@ -27,16 +27,14 @@ int main() {
 
             for (i = 0; i < size; i++) {
                 for (j = 1; j < size; j++) {
-                    if (tabc[j - 1] > tabc[j]) {
+                    if (tabc[j - 1] > tabc[j])
                         swap(tabc[j - 1], tabc[j]);
-                    }
                 }
             }
 
             cout << endl << "Posortowana tablica:" << endl;
-            for (i = 0; i < size; i++) {
+            for (i = 0; i < size; i++)
                 cout << tabc[i] << ' ';
-            }
             break;
         case 2:
             for (i = 0; i < size; i++) {
@@ -46,16 +44,14 @@ int main() {
 
             for (i = 0; i < size; i++) {
                 for (j = 1; j < size; j++) {
-                    if (tabf[j - 1] > tabf[j]) {
+                    if (tabf[j - 1] > tabf[j])
                         swap(tabf[j - 1], tabf[j]);
-                    }
                 }
             }
 
             cout << endl << "Posortowana tablica:" << endl;
-            for (i = 0; i < size; ++i) {
+            for (i = 0; i < size; ++i)
                 cout << tabf[i] << ' ';
-            }
             break;
         default:
             cout << "Bledna wartosc!";
