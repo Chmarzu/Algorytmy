@@ -9,7 +9,7 @@ int main() {
     int i, suma = 0, wynik;
 
     cout << "Podaj numer PESEL:" << endl;       //Pobranie PESEL-u
-    for (i = 0; i < ROZ; ++i) {
+    for (i = 0; i < ROZ; i++) {
         cin >> pesel[i];
         if (pesel[i] < 48 || pesel[i] > 57) {       //Weryfikacja wprowadzonych wartosci
             cout << "Nieprawidlowy PESEL.";
@@ -17,7 +17,7 @@ int main() {
         }
     }
 
-    for (i = 0; i < ROZ; ++i) {     //Test PESEL-u
+    for (i = 0; i < ROZ; i++) {     //Test PESEL-u
         if (!i || i == 4 || i == 8 || i == 10)
             suma += (pesel[i]  - 48) * 1;
         else if (i == 1 || i == 5 || i == 9)
@@ -30,8 +30,10 @@ int main() {
     wynik = suma % 10;
 
     if (!wynik)
-        cout << "Prawidlowy PESEL.";
+        cout << "Prawidlowy PESEL."  << endl;
     else
-        cout << "Nieprawidlowy PESEL.";
+        cout << "Nieprawidlowy PESEL." << endl;
+    fflush(stdin);
+    getchar();
     return 0;
 }

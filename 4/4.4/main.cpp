@@ -4,11 +4,11 @@ using namespace std;
 
 int main() {
 
-    int i = 0, nr = 1, pom = 0, pom2 = 0;
+    int nr = 1, pom = 0, pom2 = 0;
     float waga = 0, liczba = 0, srednia;
     char stop[5], *pstop;
     pstop = &stop[0];
-    stop[i] = '\000';       //Czyszczenie lancucha
+    stop[pom] = '\000';       //Czyszczenie lancucha
 
     cout << "Program do obliczania sredniej." << endl;
 
@@ -27,6 +27,8 @@ int main() {
     } while (strcmp(stop, "STOP") != 0);
 
     srednia = liczba / waga;
-    cout << "Srednia wazona z podanych liczb wynosi: " << srednia;
+    cout << "Srednia wazona z podanych liczb wynosi: " << srednia << endl;
+    fflush(stdin);
+    getchar();
     return 0;
 }

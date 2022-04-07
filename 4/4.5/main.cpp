@@ -21,13 +21,14 @@ int main() {
     cout << "Podaj ciag znakow:" << endl;
     gets(palin);
 
-    if (pal1[ROZ-1] != '\000')      //Sprawdzenie pojemnosci
+    if (pal1[ROZ - 1] != '\000')      //Sprawdzenie pojemnosci
         cout << "Ten ciag jest za duzy!";
     else {
         palin = &pal1[ROZ - 2];
         drom = &pal2[0];
 
-        while (*palin == '\000' || *palin == '\n')      //Ustawienie wskaznika zapelnionej tablicy na pierwszy niepusty znak od konca
+        while (*palin == '\000' ||
+               *palin == '\n')      //Ustawienie wskaznika zapelnionej tablicy na pierwszy niepusty znak od konca
             palin--;
 
         while (palin != &pal1[0] - 1) {     //Przekopiowanie ciagu znakow w odwrotnej kolejnosci
@@ -39,9 +40,11 @@ int main() {
         palin = &pal1[0];
         drom = &pal2[0];
         if (strcmp(palin, drom) == 0)       //Wynik
-            cout << "Ten ciag jest palindromem";
+            cout << "Ten ciag jest palindromem" << endl;
         else
-            cout << "Ten ciag nie jest palindromem";
+            cout << "Ten ciag nie jest palindromem" << endl;
     }
+    fflush(stdin);
+    getchar();
     return 0;
 }
