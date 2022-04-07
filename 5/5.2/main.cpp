@@ -7,12 +7,12 @@ int main() {
 
     int i, j, size, mode;
 
-    cout << "Podaj ilosc znakow do posortowania:" << endl;
+    cout << "Podaj ilosc znakow do posortowania:" << endl;      //Okreslenie ilosci znakow
     cin >> size;
     char notsortc[size], sortc[size];
     float notsortf[size], sortf[size];
 
-    cout << endl << "Wypierz opcje:" << endl;
+    cout << endl << "Wypierz opcje:" << endl;       //Okreslenie typu znakow
     cout << "(1) Sortowanie liczb naturalnych (dotatnie, calkowite) lub znakow" << endl;
     cout << "(2) Sortowanie liczb ujemnych lub zmiennoprzecinkowych" << endl;
     cin >> mode;
