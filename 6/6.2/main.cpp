@@ -29,7 +29,6 @@ int main() {
                 NegNumbFloat(size);
             else
                 cout << endl << "Blad!";
-
         cout << endl;
     } while (mode != 1 && mode != 2);
 
@@ -41,7 +40,7 @@ int main() {
 }
 
 void NumbChar(int size) {
-    int i, j = 0;
+    int i, j, avg = 0, sub[size], lesser = '\0', greater = '\0';
     char tab[size], *ptab, pivot, left[size], *pleft, right[size], *pright;
     ptab = &tab[0];
     pleft = &left[0];
@@ -51,9 +50,29 @@ void NumbChar(int size) {
         cout << "Podaj element numer " << i + 1 << ":" << endl;
         cin >> tab[i];
         left[i] = right[i] = '\0';
+        //avg += tab[i];
     }
 
+    /*
+    avg /= size;
+    for (i = 0; i < size; i++) {
+        sub[i] = avg - tab[i];
+        sub[i] < 0 ? sub[i] = -sub[i]: sub[i];
+    }
+    for (i = 0; i < size; i++) {
+
+    }
+
+
+    do {
+        for (i = 0; i < size; ++i) {
+
+        }
+    } while (lesser == '\0' || greater == '\0')
+    */
+
     pivot = tab[0];
+
     for (i = 1; i < size; i++) {
         if (tab[i] < pivot) {
             *pleft = tab[i];
@@ -64,19 +83,24 @@ void NumbChar(int size) {
         }
     }
 
-    for (i = 0; i < size; i++) {
-        for (j = 1; j < size; j++) {
-            if (left[j - 1] > left[j] && left[j] != '\0')
-                swap(left[j - 1], left[j]);
+    if (left[0] != '\0') {
+        for (i = 0; i < size; i++) {
+            for (j = 1; j < size; j++) {
+                if (left[j - 1] > left[j] && left[j] != '\0')
+                    swap(left[j - 1], left[j]);
+            }
         }
     }
 
-    for (i = 0; i < size; i++) {
-        for (j = 1; j < size; j++) {
-            if (right[j - 1] > right[j]  && left[j] != '\0')
-                swap(right[j - 1], right[j]);
+    if (right[0] != '\0') {
+        for (i = 0; i < size; i++) {
+            for (j = 1; j < size; j++) {
+                if (right[j - 1] > right[j] && left[j] != '\0')
+                    swap(right[j - 1], right[j]);
+            }
         }
     }
+
     pleft = &left[0];
     while (*pleft != '\0') {
         *ptab = *pleft;
@@ -100,7 +124,7 @@ void NumbChar(int size) {
 }
 
 void NegNumbFloat(int size) {
-    int i, j = 0;
+    int i, j;
     float tab[size], *ptab, pivot, left[size], *pleft, right[size], *pright;
     ptab = &tab[0];
     pleft = &left[0];
