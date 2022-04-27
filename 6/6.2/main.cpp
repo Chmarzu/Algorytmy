@@ -8,7 +8,7 @@ void NegNumbFloat(int size);
 int main() {
     int size = 0, mode = 0;
 
-    do {
+    do {        //Pobranie rozmiaru tablicy sortowania
         cout << "Podaj ilosc znakow do posortowania:" << endl;
         cin >> size;
 
@@ -17,7 +17,7 @@ int main() {
         cout << endl;
     } while (size < 2);
 
-    do {
+    do {        //Wybor typu sortowanych znakow
         cout << "Wypierz opcje:" << endl;
         cout << "(1) Sortowanie liczb naturalnych (dotatnie, calkowite) lub znakow" << endl;
         cout << "(2) Sortowanie liczb ujemnych lub zmiennoprzecinkowych" << endl;
@@ -29,7 +29,6 @@ int main() {
                 NegNumbFloat(size);
             else
                 cout << endl << "Blad!";
-
         cout << endl;
     } while (mode != 1 && mode != 2);
 
@@ -41,20 +40,24 @@ int main() {
 }
 
 void NumbChar(int size) {
-    int i, j = 0;
+    int i, j;
     char tab[size], *ptab, pivot, left[size], *pleft, right[size], *pright;
     ptab = &tab[0];
     pleft = &left[0];
     pright = &right[0];
 
-    for (i = 0; i < size; i++) {
+    for (i = 0; i < size; i++)
+        tab[size] = '\0';
+
+    for (i = 0; i < size; i++) {        //Pobranie elementow do sortowania
         cout << "Podaj element numer " << i + 1 << ":" << endl;
         cin >> tab[i];
         left[i] = right[i] = '\0';
     }
 
-    pivot = tab[0];
-    for (i = 1; i < size; i++) {
+    pivot = tab[0];     //Wybor pivota
+
+    for (i = 1; i < size; i++) {        //Podzial na mniejsze tablice
         if (tab[i] < pivot) {
             *pleft = tab[i];
             pleft++;
@@ -64,19 +67,26 @@ void NumbChar(int size) {
         }
     }
 
-    for (i = 0; i < size; i++) {
-        for (j = 1; j < size; j++) {
-            if (left[j - 1] > left[j] && left[j] != '\0')
-                swap(left[j - 1], left[j]);
+    //Sortowanie mniejszych tablic
+    if (left[0] != '\0') {
+        for (i = 0; i < size; i++) {
+            for (j = 1; j < size; j++) {
+                if (left[j - 1] > left[j] && left[j] != '\0')
+                    swap(left[j - 1], left[j]);
+            }
         }
     }
 
-    for (i = 0; i < size; i++) {
-        for (j = 1; j < size; j++) {
-            if (right[j - 1] > right[j]  && left[j] != '\0')
-                swap(right[j - 1], right[j]);
+    if (right[0] != '\0') {
+        for (i = 0; i < size; i++) {
+            for (j = 1; j < size; j++) {
+                if (right[j - 1] > right[j] && right[j] != '\0')
+                    swap(right[j - 1], right[j]);
+            }
         }
     }
+
+    //Przeniesienie posortowanych elementow do glownej tablicy
     pleft = &left[0];
     while (*pleft != '\0') {
         *ptab = *pleft;
@@ -94,26 +104,27 @@ void NumbChar(int size) {
         pright++;
     }
 
-    cout << endl << "Posortowana tablica:" << endl;
+    cout << endl << "Posortowana tablica:" << endl;     //Wynik
     for (i = 0; i < size; i++)
         cout << tab[i] << ' ';
 }
 
 void NegNumbFloat(int size) {
-    int i, j = 0;
+    int i, j;
     float tab[size], *ptab, pivot, left[size], *pleft, right[size], *pright;
     ptab = &tab[0];
     pleft = &left[0];
     pright = &right[0];
 
-    for (i = 0; i < size; i++) {
+    for (i = 0; i < size; i++) {        //Pobranie elementow do sortowania
         cout << "Podaj element numer " << i + 1 << ":" << endl;
         cin >> tab[i];
         left[i] = right[i] = '\0';
     }
 
-    pivot = tab[0];
-    for (i = 1; i < size; i++) {
+    pivot = tab[0];     //Wybor pivota
+
+    for (i = 1; i < size; i++) {        //Podzial na mniejsze tablice
         if (tab[i] < pivot) {
             *pleft = tab[i];
             pleft++;
@@ -123,6 +134,7 @@ void NegNumbFloat(int size) {
         }
     }
 
+    //Sortowanie mniejszych tablic
     for (i = 0; i < size; i++) {
         for (j = 1; j < size; j++) {
             if (left[j - 1] > left[j] && left[j] != '\0')
@@ -132,10 +144,12 @@ void NegNumbFloat(int size) {
 
     for (i = 0; i < size; i++) {
         for (j = 1; j < size; j++) {
-            if (right[j - 1] > right[j]  && left[j] != '\0')
+            if (right[j - 1] > right[j]  && right[j] != '\0')
                 swap(right[j - 1], right[j]);
         }
     }
+
+    //Przeniesienie posortowanych elementow do glownej tablicy
     pleft = &left[0];
     while (*pleft != '\0') {
         *ptab = *pleft;
@@ -153,7 +167,7 @@ void NegNumbFloat(int size) {
         pright++;
     }
 
-    cout << endl << "Posortowana tablica:" << endl;
+    cout << endl << "Posortowana tablica:" << endl;     //Wynik
     for (i = 0; i < size; i++)
         cout << tab[i] << ' ';
 }

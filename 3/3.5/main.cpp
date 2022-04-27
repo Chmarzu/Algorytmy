@@ -29,5 +29,4 @@ int main(){
     } while (liczba != los);
 
   return 0;
-
 }

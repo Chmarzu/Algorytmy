@@ -13,9 +13,11 @@ int main() {
     Wx = c1 * b2 - b1 * c2;
     Wy = a1 * c2 - c1 * a2;
 
-    if(W != 0) {
-        cout << "x = "<< Wx / W << endl;
-        cout << "y = "<< Wy / W << endl;
+    if(W != 0) {        //Weryfikacja stanu ukladu
+        x = Wx / W;
+        y = Wy / W;
+        cout << "x = " << x << endl;
+        cout << "y = " << y << endl;
     } else {
         if (Wx == 0 && Wy == 0)
             cout << "Uklad nieoznaczony" << endl;
