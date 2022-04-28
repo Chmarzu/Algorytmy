@@ -1,4 +1,5 @@
 #include<iostream>
+//#include <windows.h>
 
 using namespace std;
 
@@ -29,6 +30,7 @@ int main() {
     cout << endl << "Posortowana tablica:" << endl;     //Wynik
     for (i = 0; i < size; i++)
         cout << array[i] << ' ';
+    cout << endl;
 
     fflush(stdin);
     getchar();
@@ -81,5 +83,6 @@ void merge(int array[], int start, int middle, int end) {
     cout << endl;
     for (i = start; i <= end; i++)
         cout << array[i] << " ";
+    //Sleep(2000);
     cout << endl;
 }
