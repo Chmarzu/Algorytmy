@@ -1,88 +1,85 @@
 #include<iostream>
+
 using namespace std;
- 
-void merge(int tablica[], int start, int srodek, int koniec)
-{
-int *tab_pom = new int[(koniec-start)]; // utworzenie tablicy pomocniczej
-int i = start, j = srodek+1, k = 0; // zmienne pomocnicze
- 
-while (i <= srodek && j <= koniec)
-{
-if (tablica[j] < tablica[i])
-{
-tab_pom[k] = tablica[j];
-j++;
+
+void merge_sort(int array[], int start, int end);
+void merge(int array[], int start, int middle, int end);
+
+int main() {
+    int i, size;
+
+    do {        //Pobranie rozmiaru tablicy sortowania
+        cout << "Podaj ilosc znakow do posortowania:" << endl;
+        cin >> size;
+
+        if (size < 2)
+            cout << endl << "Blad!" << endl;
+        cout << endl;
+    } while (size < 2);
+
+    int array[size];
+
+    for (i = 0; i < size; i++) {        //Pobranie elementow do sortowania
+        cout << "Podaj element numer " << i + 1 << ":" << endl;
+        cin >> array[i];
+    }
+
+    merge_sort(array, 0, size - 1);
+
+    cout << endl << "Posortowana tablica:" << endl;     //Wynik
+    for (i = 0; i < size; i++)
+        cout << array[i] << ' ';
+
+    fflush(stdin);
+    getchar();
+    return 0;
 }
-else
-{
-tab_pom[k] = tablica[i];
-i++;
+
+void merge_sort(int array[], int start, int end) {
+    int middle;
+
+    if (start != end) {
+        middle = (start + end) / 2;
+        merge_sort(array, start, middle);
+        merge_sort(array, middle + 1, end);
+        merge(array, start, middle, end);
+    }
 }
-k++;
-}
- 
-if (i <= srodek)
-{
-while (i <= srodek)
-{
-tab_pom[k] = tablica[i];
-i++;
-k++;
-}
-}
-else
-{
-while (j <= koniec)
-{
-tab_pom[k] = tablica[j];
-j++;
-k++;
-}
-}
- 
-for (i = 0; i <= koniec-start; i++)
-tablica[start+i] = tab_pom[i]; 
- 
-cout << endl;
-for (i = start; i <= koniec; i++) // wypisanie posortowanej tablicy
-cout << "tablica[" << i << "] = " << tablica[i] << endl;
-}
- 
-void merge_sort(int tablica[], int start, int koniec)
-{
-int srodek;
- 
-if (start != koniec)
-{
-srodek = (start + koniec)/2;
-merge_sort(tablica, start, srodek);
-merge_sort(tablica, srodek+1, koniec);
-merge(tablica, start, srodek, koniec);
-}
-}
- 
-int main()
-{
-int ilosc_liczb, i;
-cout << "Podaj ilosc licz do posortowania: ";
-cin >> ilosc_liczb;
- 
-int *tablica = new int [ilosc_liczb]; // tablica zawierajaca ciag wejsciowy
- 
-for (i = 0; i < ilosc_liczb; i++) // wczytywanie liczb do tablicy
-{
-cout << "Podaj liczba: ";
-cin >> tablica[i];
-}
- 
-merge_sort(tablica, 0, ilosc_liczb-1);
- 
-cout << endl << "wynik:" << endl;
-for (i = 0; i < ilosc_liczb; i++) // wypisanie posortowanej tablicy
-cout << "tablica[" << i << "] = " << tablica[i] << endl;
- 
-// zwolnienie tablic zaalokowanych dynamicznie
-delete [] tablica;
- 
-return 0;
+
+void merge(int array[], int start, int middle, int end) {
+    int temp_array[end - start];
+    int i = start, j = middle + 1, k = 0;
+
+    while (i <= middle && j <= end) {
+        if (array[j] < array[i]) {
+            temp_array[k] = array[j];
+            j++;
+        } else {
+            temp_array[k] = array[i];
+            i++;
+        }
+        k++;
+    }
+
+    if (i <= middle) {
+        while (i <= middle) {
+            temp_array[k] = array[i];
+            i++;
+            k++;
+        }
+    } else {
+        while (j <= end) {
+            temp_array[k] = array[j];
+            j++;
+            k++;
+        }
+    }
+
+    for (i = 0; i <= end - start; i++)
+        array[start + i] = temp_array[i];
+
+    cout << endl;
+    for (i = start; i <= end; i++)
+        cout << array[i] << " ";
+    cout << endl;
 }
