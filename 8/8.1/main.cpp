@@ -1,4 +1,6 @@
 #include <iostream>
+#include <ctime>
+#include <windows.h>
 
 using namespace std;
 
@@ -9,6 +11,7 @@ void Selection_Sort();
 
 int main() {
     int i, size = 0, type = 0;
+    srand(time(NULL));
 
     do {        //Pobranie rozmiaru tablicy sortowania
         cout << "Podaj ilosc znakow do posortowania:" << endl;
@@ -41,9 +44,12 @@ int main() {
 }
 
 void NumbChar(int size) {
-    int i, j;
+    int i, j, clock_t;
     char tab[size];
     unsigned short mode;
+    int min;
+    long long diff[3] = {0, 0, 0};
+    int clock[3] = {0, 0, 0};
 
     for (i = 0; i < size; i++) {        //Pobranie elementow do sortowania
         cout << "Podaj element numer " << i + 1 << ":" << endl;
@@ -84,7 +90,18 @@ void NumbChar(int size) {
             cout << "(" << i << ") Insertion Sort";
             break;
         case 3:
-            Selection_Sort();
+            diff[0] = time(nullptr);
+            for (i = 0; i < size - 1; i++) {        //Sortowanie
+                min = i;
+                for (j = i; j < size; j++) {
+                    if (tab[j] < tab[min]) {
+                        min = j;
+                    }
+                }
+                swap(tab[min], tab[i]);
+            }
+            diff[1] = time(nullptr);
+            diff[2] = diff[1] - diff[0];
             break;
         case 4:
             cout << "(" << i << ") Quick Sort";
@@ -97,6 +114,8 @@ void NumbChar(int size) {
     cout << endl << "Posortowana tablica:" << endl;     //Wynik
     for (i = 0; i < size; i++)
         cout << tab[i] << ' ';
+
+    cout << endl << diff[2];
 }
 
 void NegNumbFloat(int size) {
@@ -143,7 +162,17 @@ void NegNumbFloat(int size) {
             cout << "(" << i << ") Insertion Sort";
             break;
         case 3:
-            Selection_Sort(i, j, size, tab[0]);
+            int min;
+
+            for (i = 0; i < size - 1; i++) {        //Sortowanie
+                min = i;
+                for (j = i; j < size; j++) {
+                    if (tab[j] < tab[min]) {
+                        min = j;
+                    }
+                }
+                swap(tab[min], tab[i]);
+            }
             break;
         case 4:
             cout << "(" << i << ") Quick Sort";
