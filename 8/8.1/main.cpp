@@ -5,6 +5,8 @@ using namespace std;
 void NumbChar(int size);
 void NegNumbFloat(int size);
 
+void Selection_Sort();
+
 int main() {
     int i, size = 0, type = 0;
 
@@ -39,8 +41,67 @@ int main() {
 }
 
 void NumbChar(int size) {
-    int i, j, min;
+    int i, j;
     char tab[size];
+    unsigned short mode;
+
+    for (i = 0; i < size; i++) {        //Pobranie elementow do sortowania
+        cout << "Podaj element numer " << i + 1 << ":" << endl;
+        cin >> tab[i];
+    }
+
+    do {
+        cout << "Wybierz algorytm sortujacy:" << endl;
+        for (i = 1; i < 6; i++) {
+            switch (i) {
+                case 1:
+                    cout << "(" << i << ")  Sort";
+                    break;
+                case 2:
+                    cout << "(" << i << ") Insertion Sort";
+                    break;
+                case 3:
+                    cout << "(" << i << ") Selection Sort";
+                    break;
+                case 4:
+                    cout << "(" << i << ") Quick Sort";
+                    break;
+                case 5:
+                    cout << "(" << i << ") Merge Sort";
+                    break;
+            }
+            cout << endl;
+        }
+        cin >> mode;
+        cout << endl;
+    } while (mode < 1 || mode > 5);
+
+    switch (mode) {
+        case 1:
+            cout << "(" << i << ")  Sort";
+            break;
+        case 2:
+            cout << "(" << i << ") Insertion Sort";
+            break;
+        case 3:
+            Selection_Sort();
+            break;
+        case 4:
+            cout << "(" << i << ") Quick Sort";
+            break;
+        case 5:
+            cout << "(" << i << ") Merge Sort";
+            break;
+    }
+
+    cout << endl << "Posortowana tablica:" << endl;     //Wynik
+    for (i = 0; i < size; i++)
+        cout << tab[i] << ' ';
+}
+
+void NegNumbFloat(int size) {
+    int i, j;
+    float tab[size];
     unsigned short mode;
 
     for (i = 0; i < size; i++) {        //Pobranie elementow do sortowania
@@ -82,7 +143,7 @@ void NumbChar(int size) {
             cout << "(" << i << ") Insertion Sort";
             break;
         case 3:
-            cout << "(" << i << ") Selection Sort";
+            Selection_Sort(i, j, size, tab[0]);
             break;
         case 4:
             cout << "(" << i << ") Quick Sort";
@@ -90,16 +151,6 @@ void NumbChar(int size) {
         case 5:
             cout << "(" << i << ") Merge Sort";
             break;
-    }
-
-    for (i = 0; i < size - 1; i++) {        //Sortowanie
-        min = i;
-        for(j = i; j < size; j++) {
-            if (tab[j] < tab[min]) {
-                min=j;
-            }
-        }
-        swap(tab[min],tab[i]);
     }
 
     cout << endl << "Posortowana tablica:" << endl;     //Wynik
@@ -107,45 +158,16 @@ void NumbChar(int size) {
         cout << tab[i] << ' ';
 }
 
-void NegNumbFloat(int size) {
-    int i, j, min;
-    float tab[size];
-    unsigned short mode;
-
-    for (i = 0; i < size; i++) {        //Pobranie elementow do sortowania
-        cout << "Podaj element numer " << i + 1 << ":" << endl;
-        cin >> tab[i];
-    }
-
-    switch (mode) {
-        case 1:
-            cout << "(" << i << ") Selection Sort";
-            break;
-        case 2:
-            cout << "(" << i << ") Insertion Sort";
-            break;
-        case 3:
-            cout << "(" << i << ") Selection Sort";
-            break;
-        case 4:
-            cout << "(" << i << ") Quick Sort";
-            break;
-        case 5:
-            cout << "(" << i << ") Merge Sort";
-            break;
-    }
+void Selection_Sort(int i, int j, int size, int tab[]) {
+    int min;
 
     for (i = 0; i < size - 1; i++) {        //Sortowanie
         min = i;
-        for(j = i; j < size; j++) {
+        for (j = i; j < size; j++) {
             if (tab[j] < tab[min]) {
-                min=j;
+                min = j;
             }
         }
-        swap(tab[min],tab[i]);
+        swap(tab[min], tab[i]);
     }
-
-    cout << endl << "Posortowana tablica:" << endl;     //Wynik
-    for (i = 0; i < size; i++)
-        cout << tab[i] << ' ';
 }
