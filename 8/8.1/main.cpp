@@ -5,7 +5,11 @@
 using namespace std;
 
 void NumbChar(int size);
+void ch_merge_sort(char *array, int start, int end);
+void ch_merge(char *array, int start, int middle, int end);
 void NegNumbFloat(int size);
+void f_merge_sort(float *array, int start, int end);
+void f_merge(float *array, int start, int middle, int end);
 
 void Selection_Sort();
 
@@ -44,12 +48,14 @@ int main() {
 }
 
 void NumbChar(int size) {
-    int i, j, clock_t;
+    int i, j;
     char tab[size];
     unsigned short mode;
-    int min;
     long long diff[3] = {0, 0, 0};
-    int clock[3] = {0, 0, 0};
+
+    //temporary
+    char tab2[size], *ptab, pivot, left[size], *pleft, right[size], *pright;
+    int min;
 
     for (i = 0; i < size; i++) {        //Pobranie elementow do sortowania
         cout << "Podaj element numer " << i + 1 << ":" << endl;
@@ -84,10 +90,33 @@ void NumbChar(int size) {
 
     switch (mode) {
         case 1:
-            cout << "(" << i << ")  Sort";
+            diff[0] = time(nullptr);
+            for (i = 0; i < size; i++) {
+                for (j = 1; j < size; j++) {
+                    if (tab[j - 1] > tab[j])
+                        swap(tab[j - 1], tab[j]);
+                }
+            }
+
+            diff[1] = time(nullptr);
+            diff[2] = diff[1] - diff[0];
             break;
         case 2:
-            cout << "(" << i << ") Insertion Sort";
+            diff[0] = time(nullptr);
+            tab2[0] = tab[0];
+            for (i = 1; i < size; i++) {
+                tab2[i] = tab[i];
+                for (j = 0; j < size; j++) {
+                    if (tab2[j] > tab2[i])
+                        swap(tab2[j], tab2[i]);
+                }
+            }
+
+            for (i = 0; i < size; i++)
+                tab[i] = tab2[i];
+
+            diff[1] = time(nullptr);
+            diff[2] = diff[1] - diff[0];
             break;
         case 3:
             diff[0] = time(nullptr);
@@ -104,10 +133,74 @@ void NumbChar(int size) {
             diff[2] = diff[1] - diff[0];
             break;
         case 4:
-            cout << "(" << i << ") Quick Sort";
+            diff[0] = time(nullptr);
+
+            ptab = &tab[0];
+            pleft = &left[0];
+            pright = &right[0];
+
+            for (i = 0; i < size; i++) {
+                tab[size] = '\0';
+                left[i] = right[i] = '\0';
+            }
+
+            pivot = tab[0];     //Wybor pivota
+
+            for (i = 1; i < size; i++) {        //Podzial na mniejsze tablice
+                if (tab[i] < pivot) {
+                    *pleft = tab[i];
+                    pleft++;
+                } else {
+                    *pright = tab[i];
+                    pright++;
+                }
+            }
+
+            //Sortowanie mniejszych tablic
+            if (left[0] != '\0') {
+                for (i = 0; i < size; i++) {
+                    for (j = 1; j < size; j++) {
+                        if (left[j - 1] > left[j] && left[j] != '\0')
+                            swap(left[j - 1], left[j]);
+                    }
+                }
+            }
+
+            if (right[0] != '\0') {
+                for (i = 0; i < size; i++) {
+                    for (j = 1; j < size; j++) {
+                        if (right[j - 1] > right[j] && right[j] != '\0')
+                            swap(right[j - 1], right[j]);
+                    }
+                }
+            }
+
+            //Przeniesienie posortowanych elementow do glownej tablicy
+            pleft = &left[0];
+            while (*pleft != '\0') {
+                *ptab = *pleft;
+                ptab++;
+                pleft++;
+            }
+
+            *ptab = pivot;
+            ptab++;
+
+            pright = &right[0];
+            while (*pright != '\0') {
+                *ptab = *pright;
+                ptab++;
+                pright++;
+            }
+
+            diff[1] = time(nullptr);
+            diff[2] = diff[1] - diff[0];
             break;
         case 5:
-            cout << "(" << i << ") Merge Sort";
+            diff[0] = time(nullptr);
+            ch_merge_sort(&tab[0], 0, size - 1);
+            diff[1] = time(nullptr);
+            diff[2] = diff[1] - diff[0];
             break;
     }
 
@@ -116,6 +209,57 @@ void NumbChar(int size) {
         cout << tab[i] << ' ';
 
     cout << endl << diff[2];
+}
+
+void ch_merge_sort(char *array, int start, int end) {
+    int middle;
+
+    if (start != end) {     //Podzial na pomniejsze zbiory
+        middle = (start + end) / 2;
+        ch_merge_sort(array, start, middle);
+        ch_merge_sort(array, middle + 1, end);
+        ch_merge(array, start, middle, end);
+    }
+}
+
+void ch_merge(char *array, int start, int middle, int end) {
+    char temp_array[end - start];
+    int i = start, j = middle + 1, k = 0;
+
+    while (i <= middle && j <= end) {       //Sortowanie
+        if (*(array + j) < *(array + i)) {
+            temp_array[k] = *(array + j);
+            j++;
+        } else {
+            temp_array[k] = *(array + i);
+            i++;
+        }
+        k++;
+    }
+
+    //Wypelnianie pomocniczej tablicy brakujaca zawartoscia
+    if (i <= middle) {
+        while (i <= middle) {
+            temp_array[k] = *(array + i);
+            i++;
+            k++;
+        }
+    } else {
+        while (j <= end) {
+            temp_array[k] = *(array + j);
+            j++;
+            k++;
+        }
+    }
+
+    for (i = 0; i <= end - start; i++)      //Przeniesienie wyniku sortowania do glownej tablicy
+        *(array + (start + i)) = temp_array[i];
+
+    cout << endl;
+    for (i = start; i <= end; i++)      //Wyswietlenie wyniku sortowania mniejszego zbioru
+        cout << *(array + i) << " ";
+    Sleep(2000);
+    cout << endl;
 }
 
 void NegNumbFloat(int size) {
