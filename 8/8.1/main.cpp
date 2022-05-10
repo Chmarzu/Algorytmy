@@ -1,5 +1,4 @@
 #include <iostream>
-#include <ctime>
 #include <windows.h>
 
 using namespace std;
@@ -10,7 +9,6 @@ void ch_merge(char *array, int start, int middle, int end);
 
 int main() {
     int size = 0;
-    srand(time(NULL));
 
     do {        //Pobranie rozmiaru tablicy sortowania
         cout << "Podaj ilosc znakow do posortowania:" << endl;
