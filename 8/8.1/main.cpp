@@ -14,10 +14,12 @@ int main() {
     int i, temp, size = 0;
     char text[15];
 
-    cout << "Podaj plik do posotowania: " << endl;
+    cout << "Podaj liczbe elementow:" << endl;
     cin >> temp;
+    cout << "Podaj plik do posotowania:" << endl;
+    cin >> i;
 
-    for (i = 0; i < 3; ++i) {
+    //for (i = 0; i < 3; ++i) {
         switch (temp) {
             case 10:
                 switch (i) {
@@ -35,6 +37,7 @@ int main() {
                         cout << endl << "Blad!" << endl;
                         break;
                 }
+                size = temp;
                 break;
             case 20:
                 switch (i) {
@@ -52,6 +55,7 @@ int main() {
                         cout << endl << "Blad!" << endl;
                         break;
                 }
+                size = temp;
                 break;
             case 30:
                 switch (i) {
@@ -69,6 +73,7 @@ int main() {
                         cout << endl << "Blad!" << endl;
                         break;
                 }
+                size = temp;
                 break;
             case 40:
                 switch (i) {
@@ -86,6 +91,7 @@ int main() {
                         cout << endl << "Blad!" << endl;
                         break;
                 }
+                size = temp;
                 break;
             case 50:
                 switch (i) {
@@ -103,6 +109,7 @@ int main() {
                         cout << endl << "Blad!" << endl;
                         break;
                 }
+                size = temp;
                 break;
             case 75:
                 switch (i) {
@@ -120,6 +127,7 @@ int main() {
                         cout << endl << "Blad!" << endl;
                         break;
                 }
+                size = temp;
                 break;
             case 100:
                 switch (i) {
@@ -137,6 +145,7 @@ int main() {
                         cout << endl << "Blad!" << endl;
                         break;
                 }
+                size = temp;
                 break;
             case 200:
                 switch (i) {
@@ -154,6 +163,7 @@ int main() {
                         cout << endl << "Blad!" << endl;
                         break;
                 }
+                size = temp;
                 break;
             case 300:
                 switch (i) {
@@ -171,6 +181,7 @@ int main() {
                         cout << endl << "Blad!" << endl;
                         break;
                 }
+                size = temp;
                 break;
             case 400:
                 switch (i) {
@@ -188,6 +199,7 @@ int main() {
                         cout << endl << "Blad!" << endl;
                         break;
                 }
+                size = temp;
                 break;
             case 500:
                 switch (i) {
@@ -205,6 +217,7 @@ int main() {
                         cout << endl << "Blad!" << endl;
                         break;
                 }
+                size = temp;
                 break;
             default:
                 cout << endl << "Blad!" << endl;
@@ -212,7 +225,9 @@ int main() {
         }
 
         Sort(size, file_name, &text[0]);
-    }
+    //}
+
+    SaveTime(&text[0]);
 
     cout << endl;
     fflush(stdin);
@@ -386,18 +401,16 @@ void Sort(int size, string &file_name, char text[]) {
                 diff[2] = diff[1] - diff[0];
                 break;
         }
-
+/*
         cout << endl << "Posortowana tablica:" << endl;     //Wynik
         for (i = 0; i < size; i++)
             cout << tab[i] << ' ';
-
+*/
         cout << endl << "Czas sortowania: " << diff[2];
 
-        temp = diff[2];
-        text[k] = temp + 48;
+         diff[2];
+        text[k] = diff[2] + 48;
     }
-
-    SaveTime(&text[0]);
 }
 
 void ch_merge_sort(char *array, int start, int end) {
@@ -447,7 +460,7 @@ void ch_merge(char *array, int start, int middle, int end) {
     cout << endl;
     for (i = start; i <= end; i++)      //Wyswietlenie wyniku sortowania mniejszego zbioru
         cout << *(array + i) << " ";
-    Sleep(2000);
+    //Sleep(2000);
     cout << endl;
 }
 
@@ -455,7 +468,7 @@ void SaveTime(char text[]) {
     ofstream file;
     file.open("result.txt");
     for (int i = 0; i < 5; i++) {
-        file << text[0] << "\n";
+        file << text[i] << "\n";
     }
     file.close();
 }
