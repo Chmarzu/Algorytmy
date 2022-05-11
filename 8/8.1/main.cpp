@@ -1,18 +1,52 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <windows.h>
 
 using namespace std;
 
-void Sort(int size, string &file_name, char text[]);
+void Sort(unsigned short mode, int size, string &file_name, int k);
 void ch_merge_sort(char *array, int start, int end);
 void ch_merge(char *array, int start, int middle, int end);
-void SaveTime(char text[]);
+void SaveTime();
+
+struct result {
+    string text;
+}res_tab[15];
 
 int main() {
     string file_name;
-    int i, temp, size = 0;
-    char text[15];
+    int i, j, k = 0, temp, size = 0;
+    unsigned short mode;
+
+    do {
+        cout << "Wybierz algorytm sortujacy:" << endl;
+        for (i = 1; i < 6; i++) {
+            switch (i) {
+                case 1:
+                    cout << "(" << i << ") Exchange Sort";
+                    break;
+                case 2:
+                    cout << "(" << i << ") Insertion Sort";
+                    break;
+                case 3:
+                    cout << "(" << i << ") Selection Sort";
+                    break;
+                case 4:
+                    cout << "(" << i << ") Quick Sort";
+                    break;
+                case 5:
+                    cout << "(" << i << ") Merge Sort";
+                    break;
+                default:
+                    cout << endl << "Blad!" << endl;
+                    break;
+            }
+            cout << endl;
+        }
+        cin >> mode;
+        cout << endl;
+    } while (mode < 1 || mode > 5);
 
     cout << "Podaj plik do posotowania: " << endl;
     cin >> temp;
@@ -210,9 +244,13 @@ int main() {
                 cout << endl << "Blad!" << endl;
                 break;
         }
-
-        Sort(size, file_name, &text[0]);
+        for (j = 0; j < 5; ++j) {
+            Sort(mode, size, file_name, k);
+            k++;
+        }
     }
+
+    SaveTime();
 
     cout << endl;
     fflush(stdin);
@@ -220,13 +258,13 @@ int main() {
     return 0;
 }
 
-void Sort(int size, string &file_name, char text[]) {
-    int i = 0, j, min, temp;
-    unsigned short mode;
+void Sort(unsigned short mode, int size, string &file_name, int k) {
+    int i = 0, j, min;
     clock_t diff[3] = {0, 0, 0};
     char tab[size];
     char tab2[size], *ptab, pivot, left[size], *pleft, right[size], *pright;
     fstream file;
+    stringstream ss;
 
     file.open(file_name);
     string line;
@@ -237,167 +275,134 @@ void Sort(int size, string &file_name, char text[]) {
     }
     file.close();
 
-    do {
-        cout << "Wybierz algorytm sortujacy:" << endl;
-        for (i = 1; i < 6; i++) {
-            switch (i) {
-                case 1:
-                    cout << "(" << i << ") Exchange Sort";
-                    break;
-                case 2:
-                    cout << "(" << i << ") Insertion Sort";
-                    break;
-                case 3:
-                    cout << "(" << i << ") Selection Sort";
-                    break;
-                case 4:
-                    cout << "(" << i << ") Quick Sort";
-                    break;
-                case 5:
-                    cout << "(" << i << ") Merge Sort";
-                    break;
-                default:
-                    cout << endl << "Blad!" << endl;
-                    break;
+    switch (mode) {
+        case 1:
+            diff[0] = clock();
+
+            for (i = 0; i < size; i++) {
+                for (j = 1; j < size; j++) {
+                    if (tab[j - 1] > tab[j])
+                        swap(tab[j - 1], tab[j]);
+                }
             }
-            cout << endl;
-        }
-        cin >> mode;
-        cout << endl;
-    } while (mode < 1 || mode > 5);
 
-    for (int k = 0; k < 5; ++k) {
-        switch (mode) {
-            case 1:
-                diff[0] = clock();
+            diff[1] = clock();
+            diff[2] = diff[1] - diff[0];
+            break;
+        case 2:
+            diff[0] = clock();
 
-                for (i = 0; i < size; i++) {
-                    for (j = 1; j < size; j++) {
-                        if (tab[j - 1] > tab[j])
-                            swap(tab[j - 1], tab[j]);
+            tab2[0] = tab[0];
+            for (i = 1; i < size; i++) {
+                tab2[i] = tab[i];
+                for (j = 0; j < size; j++) {
+                    if (tab2[j] > tab2[i])
+                        swap(tab2[j], tab2[i]);
+                }
+            }
+
+            for (i = 0; i < size; i++)
+                tab[i] = tab2[i];
+
+            diff[1] = clock();
+            diff[2] = diff[1] - diff[0];
+            break;
+        case 3:
+            diff[0] = clock();
+
+            for (i = 0; i < size - 1; i++) {        //Sortowanie
+                min = i;
+                for (j = i; j < size; j++) {
+                    if (tab[j] < tab[min]) {
+                        min = j;
                     }
                 }
+                swap(tab[min], tab[i]);
+            }
 
-                diff[1] = clock();
-                diff[2] = diff[1] - diff[0];
-                break;
-            case 2:
-                diff[0] = clock();
+            diff[1] = clock();
+            diff[2] = diff[1] - diff[0];
+            break;
+        case 4:
+            diff[0] = clock();
 
-                tab2[0] = tab[0];
-                for (i = 1; i < size; i++) {
-                    tab2[i] = tab[i];
-                    for (j = 0; j < size; j++) {
-                        if (tab2[j] > tab2[i])
-                            swap(tab2[j], tab2[i]);
-                    }
-                }
+            ptab = &tab[0];
+            pleft = &left[0];
+            pright = &right[0];
 
-                for (i = 0; i < size; i++)
-                    tab[i] = tab2[i];
+            for (i = 0; i < size; i++) {
+                tab[size] = '\0';
+                left[i] = right[i] = '\0';
+            }
 
-                diff[1] = clock();
-                diff[2] = diff[1] - diff[0];
-                break;
-            case 3:
-                diff[0] = clock();
+            pivot = tab[0];     //Wybor pivota
 
-                for (i = 0; i < size - 1; i++) {        //Sortowanie
-                    min = i;
-                    for (j = i; j < size; j++) {
-                        if (tab[j] < tab[min]) {
-                            min = j;
-                        }
-                    }
-                    swap(tab[min], tab[i]);
-                }
-
-                diff[1] = clock();
-                diff[2] = diff[1] - diff[0];
-                break;
-            case 4:
-                diff[0] = clock();
-
-                ptab = &tab[0];
-                pleft = &left[0];
-                pright = &right[0];
-
-                for (i = 0; i < size; i++) {
-                    tab[size] = '\0';
-                    left[i] = right[i] = '\0';
-                }
-
-                pivot = tab[0];     //Wybor pivota
-
-                for (i = 1; i < size; i++) {        //Podzial na mniejsze tablice
-                    if (tab[i] < pivot) {
-                        *pleft = tab[i];
-                        pleft++;
-                    } else {
-                        *pright = tab[i];
-                        pright++;
-                    }
-                }
-
-                //Sortowanie mniejszych tablic
-                if (left[0] != '\0') {
-                    for (i = 0; i < size; i++) {
-                        for (j = 1; j < size; j++) {
-                            if (left[j - 1] > left[j] && left[j] != '\0')
-                                swap(left[j - 1], left[j]);
-                        }
-                    }
-                }
-
-                if (right[0] != '\0') {
-                    for (i = 0; i < size; i++) {
-                        for (j = 1; j < size; j++) {
-                            if (right[j - 1] > right[j] && right[j] != '\0')
-                                swap(right[j - 1], right[j]);
-                        }
-                    }
-                }
-
-                //Przeniesienie posortowanych elementow do glownej tablicy
-                pleft = &left[0];
-                while (*pleft != '\0') {
-                    *ptab = *pleft;
-                    ptab++;
+            for (i = 1; i < size; i++) {        //Podzial na mniejsze tablice
+                if (tab[i] < pivot) {
+                    *pleft = tab[i];
                     pleft++;
-                }
-
-                *ptab = pivot;
-                ptab++;
-
-                pright = &right[0];
-                while (*pright != '\0') {
-                    *ptab = *pright;
-                    ptab++;
+                } else {
+                    *pright = tab[i];
                     pright++;
                 }
+            }
 
-                diff[1] = clock();
-                diff[2] = diff[1] - diff[0];
-                break;
-            case 5:
-                diff[0] = clock();
-                ch_merge_sort(&tab[0], 0, size - 1);
-                diff[1] = clock();
-                diff[2] = diff[1] - diff[0];
-                break;
-        }
+            //Sortowanie mniejszych tablic
+            if (left[0] != '\0') {
+                for (i = 0; i < size; i++) {
+                    for (j = 1; j < size; j++) {
+                        if (left[j - 1] > left[j] && left[j] != '\0')
+                            swap(left[j - 1], left[j]);
+                    }
+                }
+            }
 
-        cout << endl << "Posortowana tablica:" << endl;     //Wynik
-        for (i = 0; i < size; i++)
-            cout << tab[i] << ' ';
+            if (right[0] != '\0') {
+                for (i = 0; i < size; i++) {
+                    for (j = 1; j < size; j++) {
+                        if (right[j - 1] > right[j] && right[j] != '\0')
+                            swap(right[j - 1], right[j]);
+                    }
+                }
+            }
 
-        cout << endl << "Czas sortowania: " << diff[2];
+            //Przeniesienie posortowanych elementow do glownej tablicy
+            pleft = &left[0];
+            while (*pleft != '\0') {
+                *ptab = *pleft;
+                ptab++;
+                pleft++;
+            }
 
-        temp = diff[2];
-        text[k] = temp + 48;
+            *ptab = pivot;
+            ptab++;
+
+            pright = &right[0];
+            while (*pright != '\0') {
+                *ptab = *pright;
+                ptab++;
+                pright++;
+            }
+
+            diff[1] = clock();
+            diff[2] = diff[1] - diff[0];
+            break;
+        case 5:
+            diff[0] = clock();
+            ch_merge_sort(&tab[0], 0, size - 1);
+            diff[1] = clock();
+            diff[2] = diff[1] - diff[0];
+            break;
     }
 
-    SaveTime(&text[0]);
+    cout << endl << "Posortowana tablica:" << endl;     //Wynik
+    for (i = 0; i < size; i++)
+        cout << tab[i] << ' ';
+
+    cout << endl << "Czas sortowania: " << diff[2];
+
+    ss << diff[2];
+    ss >> res_tab[k].text;
 }
 
 void ch_merge_sort(char *array, int start, int end) {
@@ -447,15 +452,15 @@ void ch_merge(char *array, int start, int middle, int end) {
     cout << endl;
     for (i = start; i <= end; i++)      //Wyswietlenie wyniku sortowania mniejszego zbioru
         cout << *(array + i) << " ";
-    Sleep(2000);
+    Sleep(20);
     cout << endl;
 }
 
-void SaveTime(char text[]) {
+void SaveTime() {
     ofstream file;
     file.open("result.txt");
-    for (int i = 0; i < 5; i++) {
-        file << text[0] << "\n";
+    for (int i = 0; i < 15; i++) {
+        file << res_tab[i].text << "\n";
     }
     file.close();
 }
