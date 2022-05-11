@@ -4,39 +4,215 @@
 
 using namespace std;
 
-void Sort(int size, string &file_name);
+void Sort(int size, string &file_name, char text[]);
 void ch_merge_sort(char *array, int start, int end);
 void ch_merge(char *array, int start, int middle, int end);
-void SaveTime(clock_t time);
+void SaveTime(char text[]);
 
 int main() {
     string file_name;
-    int temp, size = 0;
+    int i, temp, size = 0;
+    char text[15];
 
     cout << "Podaj plik do posotowania: " << endl;
     cin >> temp;
 
-    switch (temp) {
-        case 10:
-            file_name = "10.txt";
-            size = temp;
-            break;
-        /*case 10:
-            file_name = "test.txt";
-            size = temp;
-            break;
-        case 10:
-            file_name = "test.txt";
-            size = temp;
-            break;
-        case 10:
-            file_name = "test.txt";
-            size = temp;
-            break;*/
+    for (i = 0; i < 3; ++i) {
+        switch (temp) {
+            case 10:
+                switch (i) {
+                    case 0:
+                        file_name = "DATA/opt/10.txt";
+                        size = temp;
+                        break;
+                    case 1:
+                        file_name = "DATA/rand/10.txt";
+                        break;
+                    case 2:
+                        file_name = "DATA/pest/10.txt";
+                        break;
+                    default:
+                        cout << endl << "Blad!" << endl;
+                        break;
+                }
+                break;
+            case 20:
+                switch (i) {
+                    case 0:
+                        file_name = "DATA/opt/20.txt";
+                        size = temp;
+                        break;
+                    case 1:
+                        file_name = "DATA/rand/20.txt";
+                        break;
+                    case 2:
+                        file_name = "DATA/pest/20.txt";
+                        break;
+                    default:
+                        cout << endl << "Blad!" << endl;
+                        break;
+                }
+                break;
+            case 30:
+                switch (i) {
+                    case 0:
+                        file_name = "DATA/opt/30.txt";
+                        size = temp;
+                        break;
+                    case 1:
+                        file_name = "DATA/rand/30.txt";
+                        break;
+                    case 2:
+                        file_name = "DATA/pest/30.txt";
+                        break;
+                    default:
+                        cout << endl << "Blad!" << endl;
+                        break;
+                }
+                break;
+            case 40:
+                switch (i) {
+                    case 0:
+                        file_name = "DATA/opt/40.txt";
+                        size = temp;
+                        break;
+                    case 1:
+                        file_name = "DATA/rand/40.txt";
+                        break;
+                    case 2:
+                        file_name = "DATA/pest/40.txt";
+                        break;
+                    default:
+                        cout << endl << "Blad!" << endl;
+                        break;
+                }
+                break;
+            case 50:
+                switch (i) {
+                    case 0:
+                        file_name = "DATA/opt/50.txt";
+                        size = temp;
+                        break;
+                    case 1:
+                        file_name = "DATA/rand/50.txt";
+                        break;
+                    case 2:
+                        file_name = "DATA/pest/50.txt";
+                        break;
+                    default:
+                        cout << endl << "Blad!" << endl;
+                        break;
+                }
+                break;
+            case 75:
+                switch (i) {
+                    case 0:
+                        file_name = "DATA/opt/75.txt";
+                        size = temp;
+                        break;
+                    case 1:
+                        file_name = "DATA/rand/75.txt";
+                        break;
+                    case 2:
+                        file_name = "DATA/pest/75.txt";
+                        break;
+                    default:
+                        cout << endl << "Blad!" << endl;
+                        break;
+                }
+                break;
+            case 100:
+                switch (i) {
+                    case 0:
+                        file_name = "DATA/opt/100.txt";
+                        size = temp;
+                        break;
+                    case 1:
+                        file_name = "DATA/rand/100.txt";
+                        break;
+                    case 2:
+                        file_name = "DATA/pest/100.txt";
+                        break;
+                    default:
+                        cout << endl << "Blad!" << endl;
+                        break;
+                }
+                break;
+            case 200:
+                switch (i) {
+                    case 0:
+                        file_name = "DATA/opt/200.txt";
+                        size = temp;
+                        break;
+                    case 1:
+                        file_name = "DATA/rand/200.txt";
+                        break;
+                    case 2:
+                        file_name = "DATA/pest/200.txt";
+                        break;
+                    default:
+                        cout << endl << "Blad!" << endl;
+                        break;
+                }
+                break;
+            case 300:
+                switch (i) {
+                    case 0:
+                        file_name = "DATA/opt/300.txt";
+                        size = temp;
+                        break;
+                    case 1:
+                        file_name = "DATA/rand/300.txt";
+                        break;
+                    case 2:
+                        file_name = "DATA/pest/300.txt";
+                        break;
+                    default:
+                        cout << endl << "Blad!" << endl;
+                        break;
+                }
+                break;
+            case 400:
+                switch (i) {
+                    case 0:
+                        file_name = "DATA/opt/400.txt";
+                        size = temp;
+                        break;
+                    case 1:
+                        file_name = "DATA/rand/400.txt";
+                        break;
+                    case 2:
+                        file_name = "DATA/pest/400.txt";
+                        break;
+                    default:
+                        cout << endl << "Blad!" << endl;
+                        break;
+                }
+                break;
+            case 500:
+                switch (i) {
+                    case 0:
+                        file_name = "DATA/opt/500.txt";
+                        size = temp;
+                        break;
+                    case 1:
+                        file_name = "DATA/rand/500.txt";
+                        break;
+                    case 2:
+                        file_name = "DATA/pest/500.txt";
+                        break;
+                    default:
+                        cout << endl << "Blad!" << endl;
+                        break;
+                }
+                break;
+            default:
+                cout << endl << "Blad!" << endl;
+                break;
+        }
+
+        Sort(size, file_name, &text[0]);
     }
-
-
-    Sort(size, file_name);
 
     cout << endl;
     fflush(stdin);
@@ -44,8 +220,8 @@ int main() {
     return 0;
 }
 
-void Sort(int size, string &file_name) {
-    int i = 0, j, min;
+void Sort(int size, string &file_name, char text[]) {
+    int i = 0, j, min, temp;
     unsigned short mode;
     clock_t diff[3] = {0, 0, 0};
     char tab[size];
@@ -216,8 +392,12 @@ void Sort(int size, string &file_name) {
             cout << tab[i] << ' ';
 
         cout << endl << "Czas sortowania: " << diff[2];
-        SaveTime(diff[2]);
+
+        temp = diff[2];
+        text[k] = temp + 48;
     }
+
+    SaveTime(&text[0]);
 }
 
 void ch_merge_sort(char *array, int start, int end) {
@@ -271,15 +451,11 @@ void ch_merge(char *array, int start, int middle, int end) {
     cout << endl;
 }
 
-void SaveTime(clock_t time) {
-    int temp = time;
-    char text[20];
-    text[0] = temp + 48;
-
+void SaveTime(char text[]) {
     ofstream file;
     file.open("result.txt");
-    //for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 5; i++) {
         file << text[0] << "\n";
-    //}
+    }
     file.close();
 }
