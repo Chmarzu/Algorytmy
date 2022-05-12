@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <windows.h>
+//#include <windows.h>
 
 using namespace std;
 
@@ -452,7 +452,7 @@ void ch_merge(char *array, int start, int middle, int end) {
     cout << endl;
     for (i = start; i <= end; i++)      //Wyswietlenie wyniku sortowania mniejszego zbioru
         cout << *(array + i) << " ";
-    Sleep(20);
+    //Sleep(20);
     cout << endl;
 }
 
