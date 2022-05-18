@@ -50,7 +50,7 @@ void Select(int size) {
 
         exit(0);
     } else {
-        cout << "Podaj wartosc poszukiwanego elementu:" << endl;
+        cout << "Podaj indeks poszukiwanego elementu:" << endl;
         cin >> k;
     }
     for (i = 0; i < size; i++) {
