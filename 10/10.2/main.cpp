@@ -3,38 +3,32 @@
 
 using namespace std;
 
-void push(vector <string> *queue, int *elements, int i);
-void pop(vector <string> *queue, int *elements, int i);
-
 int main() {
     struct prio {
-        vector <string> queue;
+        vector<string> queue;
         int elements = 0;
     } hi, med, low;
 
-    vector <string> queue_hi, queue_med, queue_low;  //kolejka
+    string temp;        //pomocnicza zmienna
     char instrukcja;    //polecenie od uzytkownika
     bool loop = true;      //zapetlic
-    int i, elements = 0, priority;       //liczba elementow
-
-    string temp;        //pomocnicza zmienna
-    int j;
+    int i, j, priority;       //liczba elementow
 
     cout << "Typy instrukcji:" << endl
-    << "d - dodawanie napisu do kolejki" << endl
-    << "u - usuwanie napisu z kolejki" << endl
-    << "w - wyswietlanie zawartosci kolejki" << endl
-    << "x - zamkniecie programu" << endl << endl;
+         << "d - dodawanie napisu do kolejki" << endl
+         << "u - usuwanie napisu z kolejki" << endl
+         << "w - wyswietlanie zawartosci kolejki" << endl
+         << "x - zamkniecie programu" << endl << endl;
     cout << "Typy priorytetow:" << endl
-    << "(1) Wysoki" << endl
-    << "(2) Sredni" << endl
-    << "(3) Niski" << endl << endl;
+         << "(1) Wysoki" << endl
+         << "(2) Sredni" << endl
+         << "(3) Niski" << endl << endl;
 
     while (loop) {
-        cout << "Podaj instrukcje:" << endl;
+        cout << "Podaj instrukcje:" << endl;    //pobranie polecenia oraz priorytetu
         cout << "$";
         cin >> instrukcja;
-        if (instrukcja != 'w' && instrukcja != 'x') {
+        if (instrukcja == 'd') {
             cout << "Podaj priorytet:" << endl;
             cout << "$";
             cin >> priority;
@@ -44,7 +38,7 @@ int main() {
             case 'd':   //dodawanie
                 cout << "Podaj element do dodania:" << endl << "$/";
                 cin >> temp;
-                elements++;
+
                 switch (priority) {
                     case 1:
                         hi.elements++;
@@ -61,72 +55,80 @@ int main() {
                         }
                         break;
                     case 2:
-                        queue_med.push_back(temp);
-                        for (i = 0; i < elements; i++) {    //postepowanie w razie pustego poczatku
-                            if (queue_med[i].empty()) {
+                        med.elements++;
+                        med.queue.push_back(temp);
+                        for (i = 0; i < med.elements; i++) {    //postepowanie w razie pustego poczatku
+                            if (med.queue[i].empty()) {
                                 j = i + 1;
-                                while (queue_med[j].empty())
+                                while (med.queue[j].empty())
                                     j++;
-                                queue_med[i] = queue_med[j];
-                                queue_med[j].pop_back();
-                                i = elements;
+                                med.queue[i] = med.queue[j];
+                                med.queue[j].pop_back();
+                                i = med.elements;
                             }
                         }
                         break;
                     case 3:
-                        queue_low.push_back(temp);
-                        for (i = 0; i < elements; i++) {    //postepowanie w razie pustego poczatku
-                            if (queue_low[i].empty()) {
+                        low.elements++;
+                        low.queue.push_back(temp);
+                        for (i = 0; i < low.elements; i++) {    //postepowanie w razie pustego poczatku
+                            if (low.queue[i].empty()) {
                                 j = i + 1;
-                                while (queue_low[j].empty())
+                                while (low.queue[j].empty())
                                     j++;
-                                queue_low[i] = queue_low[j];
-                                queue_low[j].pop_back();
-                                i = elements;
+                                low.queue[i] = low.queue[j];
+                                low.queue[j].pop_back();
+                                i = low.elements;
                             }
                         }
                         break;
                 }
 
                 cout << "Dodano element!" << endl;
-
-                //push(&queue_hi, &elements, i);
                 break;
             case 'u':   //usuwanie
-                if (elements) {
-                    switch (priority) {
-                        case 1:
-                            for (i = 0; i < hi.elements - 1; i++)
-                                hi.queue[i] = hi.queue[i + 1];
-                            hi.queue[hi.elements - 1].pop_back();
-                            hi.elements--;
-                            break;
-                        case 2:
-                            for (i = 0; i < elements - 1; i++)
-                                queue_med[i] = queue_med[i + 1];
-                            queue_med[elements - 1].pop_back();
-                            elements--;
-                            break;
-                        case 3:
-                            for (i = 0; i < elements - 1; i++)
-                                queue_low[i] = queue_low[i + 1];
-                            queue_low[elements - 1].pop_back();
-                            elements--;
-                            break;
-                    }
+                if (hi.elements) {
+                    for (i = 0; i < hi.elements - 1; i++)
+                        hi.queue[i] = hi.queue[i + 1];
+                    hi.queue[hi.elements - 1].pop_back();
+                    hi.elements--;
+
+                    cout << "Usunieto element!" << endl;
+                } else if (med.elements) {
+                    for (i = 0; i < med.elements - 1; i++)
+                        med.queue[i] = med.queue[i + 1];
+                    med.queue[med.elements - 1].pop_back();
+                    med.elements--;
+
+                    cout << "Usunieto element!" << endl;
+                } else if (low.elements) {
+                    for (i = 0; i < low.elements - 1; i++)
+                        low.queue[i] = low.queue[i + 1];
+                    low.queue[low.elements - 1].pop_back();
+                    low.elements--;
 
                     cout << "Usunieto element!" << endl;
                 } else
                     cout << "Kolejka jest pusta!" << endl;
-
-                //pop(&queue_hi, &elements, i);
                 break;
             case 'w':   //wyswietlanie
-                if (elements == 0)
+                if (!hi.elements && !med.elements && !low.elements)
                     cout << "Kolejka jest pusta!" << endl;
                 else {
-                    for (i = 0; i < elements; i++) {
-                        cout << hi.queue[i] << " ";
+                    if (hi.elements) {
+                        for (i = 0; i < hi.elements; i++) {
+                            cout << hi.queue[i] << " ";
+                        }
+                    }
+                    if (med.elements) {
+                        for (i = 0; i < med.elements; i++) {
+                            cout << med.queue[i] << " ";
+                        }
+                    }
+                    if (low.elements) {
+                        for (i = 0; i < low.elements; i++) {
+                            cout << low.queue[i] << " ";
+                        }
                     }
                     cout << endl;
                 }
@@ -140,37 +142,4 @@ int main() {
         }
     }
     return 0;
-}
-
-void push(vector <string> *queue, int *elements, int i) {
-    string temp;        //pomocnicza zmienna
-    int j;
-
-    cout << "Podaj element do dodania:" << endl << "$/";
-    cin >> temp;
-    (*queue).push_back(temp);
-    *elements++;
-    for (i = 0; i < *elements; i++) {    //postepowanie w razie pustego poczatku
-        if (queue[i].empty()) {
-            j = i + 1;
-            while (queue[j].empty())
-                j++;
-            queue[i] = queue[j];
-            queue[j].pop_back();
-            i = *elements;
-        }
-    }
-
-    cout << "Dodano element!" << endl;
-}
-
-void pop(vector <string> *queue, int *elements, int i) {
-    if (*elements) {
-        for (i = 0; i < *elements - 1; i++)
-            queue[i] = queue[i + 1];
-        queue[*elements - 1].pop_back();
-        *elements--;
-        cout << "Usunieto element!" << endl;
-    } else
-        cout << "Kolejka jest pusta!" << endl;
 }
