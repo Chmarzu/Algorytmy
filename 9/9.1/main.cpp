@@ -9,7 +9,7 @@ int main() {
     int size = 0;
 
     do {        //Pobranie rozmiaru tablicy sortowania
-        cout << "Podaj ilosc znakow do posortowania:" << endl;
+        cout << "Podaj rozmiar zbioru:" << endl;
         cin >> size;
 
             if (size < 1)
@@ -62,7 +62,7 @@ void Select(int size) {
         }
     }
 
-    for (i = 1; i < size; i++) {        //Podzial na mniejsze tablice
+    for (i = 0; i < size; i++) {        //Podzial na mniejsze tablice
         if (tab[i] < tab[r]) {
             *pleft = tab[i];
             pleft++;
@@ -89,7 +89,7 @@ void Find(char tab[], char left[], char right[], char *pleft, char *pright, int 
         }
     }
 
-    for (i = 1; i < size; i++) {        //Podzial na mniejsze tablice
+    for (i = 0; i < size; i++) {        //Podzial na mniejsze tablice
         if (tab[i] < tab[*r]) {
             *pleft = tab[i];
             pleft++;
@@ -105,10 +105,10 @@ void Find(char tab[], char left[], char right[], char *pleft, char *pright, int 
             cout << endl << tab[0];
         else
             Find(&left[0], &left[0], &right[0], pleft, pright, i, j, k, r, size, amount);
-    }
-    else {
-        Find(&right[0], &left[0], &right[0], pleft, pright, i, j, k, r, size, amount);
+    } else {
         if (*amount == 1)
             cout << endl << tab[0];
+        else
+            Find(&right[0], &left[0], &right[0], pleft, pright, i, j, k, r, size, amount);
     }
 }
