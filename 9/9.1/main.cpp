@@ -2,22 +2,57 @@
 
 using namespace std;
 
-void Select(int size);
-void Find(int tab[], int left[], int right[], int *pleft, int *pright, int i, int j, int k, int *r, int size, int *amount);
+int arr[100];   //zbior elementow
+
+int partition(int a, int b);
 
 int main() {
-    int size = 0;
+    int n;      //liczba elementow
+    int k;      //poszukiwany element
+    int i, j, w;       //pomocnicze zmienne
 
     do {        //Pobranie rozmiaru tablicy sortowania
         cout << "Podaj rozmiar zbioru:" << endl;
-        cin >> size;
+        cin >> n;
 
-            if (size < 1)
-                cout << endl << "Blad!" << endl;
+        if (n < 1)
+            cout << endl << "Blad!" << endl;
         cout << endl;
-    } while (size < 1);
+    } while (n < 1);
 
-    Select(size);
+    for (i = 0; i < n; i++) {       //Pobranie elementow do sortowania
+        cout << "Podaj element numer " << i + 1 << ":" << endl;
+        cin >> arr[i];
+    }
+
+    if (n == 1)
+        cout << endl << "Poszukiwany element to: " << arr[0];
+    else {
+        do {
+            cout << "Podaj indeks poszukiwanego elementu:" << endl;
+            cin >> k;
+
+            if (k > n || k < 1)
+                cout << endl << "Nie ma takiego elementu!";
+        } while (k > n || k < 1);
+
+        //Algorytm Hoare'a
+        i = 0;
+        j = n - 1;
+        n = k;
+
+        while (i != j) {
+            w = partition(i, j);
+            w = w - i + 1;
+            if (w >= k) j = i + w - 1;
+            if (w < k) {
+                k -= w;
+                i += w;
+            }
+        }
+
+        cout << endl << "Poszukiwany " << n << ". element to: " << arr[i];
+    }
 
     cout << endl;
     fflush(stdin);
@@ -26,89 +61,17 @@ int main() {
     return 0;
 }
 
-void Select(int size) {
-    int i, j;       //zmienne petli
-    int k;      //indeks poszukiwanego elementu
-    int *r;     //element dzielacy
-    int amount = 0;     //liczba elementow mniejszych od elementu dzielacego
-    int tab[size];      //poczatkowa tablica
-    int left[size], *pleft, right[size], *pright;       //pomniejszcze zbiory
+int partition(int a, int b) {
+    int e;      //elemennt dzielacy
 
-    pleft = &left[0];
-    pright = &right[0];
-
-    for (i = 0; i < size; i++)
-        tab[size] = '\0';
-
-    for (i = 0; i < size; i++) {        //Pobranie elementow do sortowania
-        cout << "Podaj element numer " << i + 1 << ":" << endl;
-        cin >> tab[i];
-        left[i] = right[i] = '\0';
+    e = arr[a];
+    while (a < b) {
+        while (a < b && arr[b] >= e)
+            b--;
+        while (a < b && arr[a] < e)
+            a++;
+        if (a < b)
+            swap(arr[a], arr[b]);
     }
-
-    if (size == 1)
-        cout << endl << tab[0];
-    else {
-        cout << "Podaj indeks poszukiwanego elementu:" << endl;
-        cin >> k;
-
-        for (i = 0; i < size; i++) {
-            for (j = i + 1; j < size; j++) {
-                if (tab[i] > tab[j]) {     //Wybor pivota
-                    r = &tab[i];
-                    i = j = size;
-                }
-            }
-        }
-
-        for (i = 0; i < size; i++) {        //Podzial na mniejsze tablice
-            if (tab[i] < *r) {
-                *pleft = tab[i];
-                pleft++;
-                amount++;
-            } else {
-                *pright = tab[i];
-                pright++;
-            }
-        }
-
-        if (amount < k)     //Wybor zbioru do kolejnego podzialu
-            Find(&left[0], &left[0], &right[0], pleft, pright, i, j, k, r, size, &amount);
-        else
-            Find(&right[0], &left[0], &right[0], pleft, pright, i, j, k, r, size, &amount);
-    }
-}
-
-void Find(int tab[], int left[], int right[], int *pleft, int *pright, int i, int j, int k, int *r, int size, int *amount) {
-    for (i = 0; i < size; i++) {
-        for (j = i + 1; j < size; j++) {
-            if (tab[i] > tab[j]) {     //Wybor pivota
-                *r = tab[i];
-                i = j = size;
-            }
-        }
-    }
-
-    for (i = 0; i < size; i++) {        //Podzial na mniejsze tablice
-        if (tab[i] < *r) {
-            *pleft = tab[i];
-            pleft++;
-            *amount++;
-        } else {
-            *pright = tab[i];
-            pright++;
-        }
-    }
-
-    if (*amount < k) {      //Wybor zbioru do kolejnego podzialu
-        if (*amount == 1)
-            cout << endl << tab[0];
-        else
-            Find(&left[0], &left[0], &right[0], pleft, pright, i, j, k, r, size, amount);
-    } else {
-        if (*amount == 1)
-            cout << endl << tab[0];
-        else
-            Find(&right[0], &left[0], &right[0], pleft, pright, i, j, k, r, size, amount);
-    }
+    return a;
 }
