@@ -27,8 +27,13 @@ int main() {
 }
 
 void Select(int size) {
-    int i, j, k, r, amount = 0;
-    int tab[size], left[size], *pleft, right[size], *pright;
+    int i, j;       //zmienne petli
+    int k;      //indeks poszukiwanego elementu
+    int *r;     //element dzielacy
+    int amount = 0;     //liczba elementow mniejszych od elementu dzielacego
+    int tab[size];      //poczatkowa tablica
+    int left[size], *pleft, right[size], *pright;       //pomniejszcze zbiory
+
     pleft = &left[0];
     pright = &right[0];
 
@@ -50,14 +55,14 @@ void Select(int size) {
         for (i = 0; i < size; i++) {
             for (j = i + 1; j < size; j++) {
                 if (tab[i] > tab[j]) {     //Wybor pivota
-                    r = i;
+                    r = &tab[i];
                     i = j = size;
                 }
             }
         }
 
         for (i = 0; i < size; i++) {        //Podzial na mniejsze tablice
-            if (tab[i] < tab[r]) {
+            if (tab[i] < *r) {
                 *pleft = tab[i];
                 pleft++;
                 amount++;
@@ -67,10 +72,10 @@ void Select(int size) {
             }
         }
 
-        if (amount < k)
-            Find(&left[0], &left[0], &right[0], pleft, pright, i, j, k, &r, size, &amount);
+        if (amount < k)     //Wybor zbioru do kolejnego podzialu
+            Find(&left[0], &left[0], &right[0], pleft, pright, i, j, k, r, size, &amount);
         else
-            Find(&right[0], &left[0], &right[0], pleft, pright, i, j, k, &r, size, &amount);
+            Find(&right[0], &left[0], &right[0], pleft, pright, i, j, k, r, size, &amount);
     }
 }
 
@@ -78,14 +83,14 @@ void Find(int tab[], int left[], int right[], int *pleft, int *pright, int i, in
     for (i = 0; i < size; i++) {
         for (j = i + 1; j < size; j++) {
             if (tab[i] > tab[j]) {     //Wybor pivota
-                *r = i;
+                *r = tab[i];
                 i = j = size;
             }
         }
     }
 
     for (i = 0; i < size; i++) {        //Podzial na mniejsze tablice
-        if (tab[i] < tab[*r]) {
+        if (tab[i] < *r) {
             *pleft = tab[i];
             pleft++;
             *amount++;
@@ -95,7 +100,7 @@ void Find(int tab[], int left[], int right[], int *pleft, int *pright, int i, in
         }
     }
 
-    if (*amount < k) {
+    if (*amount < k) {      //Wybor zbioru do kolejnego podzialu
         if (*amount == 1)
             cout << endl << tab[0];
         else
