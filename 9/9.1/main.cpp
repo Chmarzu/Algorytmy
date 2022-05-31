@@ -2,9 +2,7 @@
 
 using namespace std;
 
-int arr[100];   //zbior elementow
-
-int partition(int a, int b);
+int partition(int arr[], int a, int b);
 
 int main() {
     int n;      //liczba elementow
@@ -19,6 +17,8 @@ int main() {
             cout << endl << "Blad!" << endl;
         cout << endl;
     } while (n < 1);
+
+    int arr[n];   //zbior elementow
 
     for (i = 0; i < n; i++) {       //Pobranie elementow do sortowania
         cout << "Podaj element numer " << i + 1 << ":" << endl;
@@ -42,7 +42,7 @@ int main() {
         n = k;
 
         while (i != j) {
-            w = partition(i, j);
+            w = partition(arr, i, j);
             w = w - i + 1;
             if (w >= k) j = i + w - 1;
             if (w < k) {
@@ -61,7 +61,7 @@ int main() {
     return 0;
 }
 
-int partition(int a, int b) {
+int partition(int arr[], int a, int b) {
     int e;      //elemennt dzielacy
 
     e = arr[a];
