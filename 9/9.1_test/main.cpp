@@ -52,7 +52,7 @@ int main() {
     diff[2] = diff[1] - diff[0];
 
         cout << endl << "Poszukiwany " << n << ". element to: " << arr[i];
-        cout << endl << diff[2];
+        cout << endl << "Czas algorytmu: " << diff[2];
 
     cout << endl;
     fflush(stdin);
