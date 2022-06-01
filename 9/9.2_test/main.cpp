@@ -1,4 +1,5 @@
 #include<iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -7,47 +8,40 @@ int calc_median(int arr[], int n, int i);
 int partition(int arr[], int l, int r, int x, int i);
 
 int main() {
-    int n;      //liczba elementow
-    int k;      //poszukiwany element
-    int i;       //pomocnicza zmienna
-    clock_t diff[3] = {0, 0, 0};
-
-    do {        //Pobranie rozmiaru tablicy sortowania
-        cout << "Podaj rozmiar zbioru:" << endl;
-        cin >> n;
-
-        if (n < 1)
-            cout << endl << "Blad!" << endl;
-        cout << endl;
-    } while (n < 1);
-
+    int n = 100;      //liczba elementow
+    int k = 1;      //poszukiwany element
     int arr[n];   //zbior elementow
+    int i = 0, j = 0;       //pomocnicza zmienna
+    fstream file;   //wskaznik obslugujacy plik
+    string line;    //pomocnicza zmienna
+    clock_t diff[3] = {0, 0, 0};    //wartosci czasu: poczatek, koniec, roznica
 
-    for (i = 0; i < n; i++) {       //Pobranie elementow do sortowania
-        cout << "Podaj element numer " << i + 1 << ":" << endl;
-        cin >> arr[i];
+    file.open("src1.txt");
+    while (file.good()) {
+        getline(file, line);
+
+        while (j < 3 && line[j] != '\0') {
+            if (!j)
+                arr[i] = line[j] - 48;
+            else
+                arr[i] = arr[i] * 10 + line[j] - 48;
+            j++;
+        }
+
+        i++;
+        j = 0;
     }
+    file.close();
 
-    if (n == 1)
-        cout << endl << "Poszukiwany element to: " << arr[0];
-    else {
-        do {
-            cout << "Podaj indeks poszukiwanego elementu:" << endl;
-            cin >> k;
+    diff[0] = clock();
 
-            if (k > n || k < 1)
-                cout << endl << "Nie ma takiego elementu!";
-        } while (k > n || k < 1);
-
-        diff[0] = clock();
-
-        cout << endl << "Poszukiwany " << k << ". element to: "
+    cout << endl << "Poszukiwany " << k << ". element to: "
          << selection(arr, 0, n - 1, n, k, i);
 
-        diff[1] = clock();
-        diff[2] = diff[1] - diff[0];
-        cout << endl << diff[2];
-    }
+    diff[1] = clock();
+    diff[2] = diff[1] - diff[0];
+    cout << endl << diff[2];
+
     return 0;
 }
 
