@@ -40,7 +40,7 @@ int main() {
 
     diff[1] = clock();
     diff[2] = diff[1] - diff[0];
-    cout << endl << diff[2];
+    cout << endl << "Czas algorytmu: " << diff[2];
 
     return 0;
 }
