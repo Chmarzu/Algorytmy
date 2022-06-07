@@ -5,7 +5,7 @@ using namespace std;
 int partition(int arr[], int a, int b);
 
 int main() {
-    int n;      //liczba elementow
+    int n = 0;      //liczba elementow
     int k;      //poszukiwany element
     int i, j, w;       //pomocnicze zmienne
 
