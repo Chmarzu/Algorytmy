@@ -41,6 +41,10 @@ int main() {
         cout << endl << "Poszukiwany " << k << ". element to: "
          << selection(arr, 0, n - 1, n, k, i);
     }
+
+    cout << endl;
+    fflush(stdin);
+    getchar();
     return 0;
 }
 
